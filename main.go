@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/adamzv/go-cassandra/Cassandra"
+	"github.com/adamzv/go-cassandra/Messages"
 	"github.com/adamzv/go-cassandra/Users"
 	"github.com/gorilla/mux"
 )
@@ -28,6 +29,10 @@ func main() {
 	router.HandleFunc("/users", Users.Get)
 	router.HandleFunc("/users/{user_uuid}", Users.GetOne)
 	router.HandleFunc("/users/new", Users.Post)
+
+	router.HandleFunc("/messages", Messages.Get)
+	router.HandleFunc("/messages/{message_uuid}", Messages.GetOne)
+	router.HandleFunc("/messages/new", Messages.Post)
 
 	log.Fatal(http.ListenAndServe(":80", router))
 }

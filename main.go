@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/adamzv/go-cassandra/Cassandra"
+	"github.com/adamzv/go-cassandra/Users"
 	"github.com/gorilla/mux"
 )
 
@@ -23,6 +24,11 @@ func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", heartbeat)
+
+	router.HandleFunc("/users", Users.Get)
+	router.HandleFunc("/users/{user_uuid}", Users.GetOne)
+	router.HandleFunc("/users/new", Users.Post)
+
 	log.Fatal(http.ListenAndServe(":80", router))
 }
 
